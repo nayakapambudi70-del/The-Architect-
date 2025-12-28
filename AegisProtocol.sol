@@ -1,91 +1,41 @@
+[package]
+name = "aegis_protocol"
+version = "1.0.0"
+edition = "2021"
 
-# 🏛️ AEGIS PROTOCOL: The Sovereign Wealth Infrastructure
-**Architecting the $17T Real-World Asset (RWA) Settlement Layer on Solana.**
+[dependencies]
+argon2 = "0.5.3"
 
----
+// 1. Panggil library dari Cargo.toml
+use argon2::{password_hash::{rand_core::OsRng, PasswordHash, PasswordHasher, PasswordVerifier, SaltString}, Argon2};
 
-## 🛡️ THE MANIFESTO
-Aegis Protocol is not just code; it is a **100-year economic legacy**. Built to secure the sovereign assets of the Archipelago, we leverage the **Syailendra Algorithm** to ensure transparency, kedaulatan, and immutable wealth distribution.
+fn main() {
+    println!("--- AEGIS PROTOCOL IS STARTING ---");
 
-### 🚀 CORE SPECIFICATIONS
-* **Target Liquidity:** $17 Trillion RWA Integration.
-* **Architecture:** High-Performance Rust on Solana L1.
-* **Timeline:** Locked-Emission Schedule (2025 – 2125).
-* **Governance:** Sovereign-focused Decentralized Infrastructure.
+    // 2. PW Rahasia Lu (Jangan kasih tau babu!)
+    let my_password = "PlerKastaNaga99"; 
+    
+    // 3. Proses Enkripsi (Bikin PW jadi Kode Ghaib)
+    let salt = SaltString::generate(&mut OsRng);
+    let argon2 = Argon2::default();
+    let password_hash = argon2.hash_password(my_password.as_bytes(), &salt)
+        .expect("ERROR BABI!")
+        .to_string();
 
----
+    // 4. Output: Ini yang Lu simpan di Database
+    println!("PW Lu udah aman, kodenya: {}", password_hash);
+}
+   VAULT_PASSWORD=PlerKastaNaga99
+BTC_API_KEY=rahasia_babi_12345
 
-## 💻 TECHNICAL ARCHITECTURE (V 0.1.0)
-Currently developing the **Settlement Logic** for multi-asset tokenization.
-- [x] Initializing Sovereign Asset Logic
-- [ ] Integrating Oracle for Real-Time Valuation
-- [ ] Smart Contract Audit (Q4 2025)
+use dotenvy::dotenv;
+use std::env;
 
----
+fn main() {
+    dotenv().ok(); // Ini buat baca file .env Lu
 
-## 🏛️ ABOUT THE ARCHITECT
-Driven by the vision of **Nayaka**, Aegis Protocol aims to redefine how nations and institutions manage their strategic reserves in the digital era.
-
-> *"In code we trust, in sovereignty we persist."*
-# 🏛️ AEGIS PROTOCOL: The Sovereign Wealth Infrastructure
-**Architecting the $17T Real-World Asset (RWA) Settlement Layer on Solana.**
-
----
-
-## 🛡️ THE MANIFESTO
-Aegis Protocol is not just code; it is a **100-year economic legacy**. Built to secure the sovereign assets of the Archipelago, we leverage the **Syailendra Algorithm** to ensure transparency, kedaulatan, and immutable wealth distribution.
-
-### 🚀 CORE SPECIFICATIONS
-* **Target Liquidity:** $17 Trillion RWA Integration.
-* **Architecture:** High-Performance Rust on Solana L1.
-* **Timeline:** Locked-Emission Schedule (2025 – 2125).
-* **Governance:** Sovereign-focused Decentralized Infrastructure.
-
----
-
-## 💻 TECHNICAL ARCHITECTURE (V 0.1.0)
-Currently developing the **Settlement Logic** for multi-asset tokenization.
-- [x] Initializing Sovereign Asset Logic
-- [ ] Integrating Oracle for Real-Time Valuation
-- [ ] Smart Contract Audit (Q4 2025)
-
----
-
-## 🏛️ ABOUT THE ARCHITECT
-Driven by the vision of **Nayaka**, Aegis Protocol aims to redefine how nations and institutions manage their strategic reserves in the digital era.
-
-> *"In code we trust, in sovereignty we persist."*
-
-
-
-
-# 🏛️ AEGIS PROTOCOL: THE $17T INFRASTRUCTURE
-**The Sovereign Settlement Layer for Real-World Assets (RWA) on Solana.**
-
----
-
-## 🛡️ I. THE MANIFESTO
-Aegis Protocol is architecting the digital legacy for the next 100 years. We don't just bridge assets; we secure sovereignty through the **Syailendra Algorithm**. 
-
-> *"Building the vault for the world's $17T strategic reserves."*
-
----
-
-## 📈 II. TOKENOMICS ($AEGIS)
-**Total Supply: 1,000,000,000 $AEGIS**
-* **40% RWA Reserve:** Backed by physical strategic assets.
-* **30% Infrastructure:** Locked for ecosystem growth (5-year cliff).
-* **20% Strategic Partners:** 48-month vesting for institutional trust.
-* **10% Liquidity:** Public market availability.
-
----
-
-## 💻 III. TECHNICAL PROOF (RUST LOGIC)
-```rust
-// Aegis Settlement Engine v0.1.0
-pub fn process_aegis_transfer(value: u64) {
-    let sovereign_target = 17_000_000_000_000;
-    if value <= sovereign_target {
-        println!("Settlement Confirmed: Asset secured under Aegis Protocol.");
-    }
+    // Ambil PW tanpa harus nulis PW-nya di sini!
+    let my_pw = env::var("VAULT_PASSWORD").expect("PW GAK ADA BABI!");
+    
+    println!("Sistem Aegis pake kunci rahasia dari .env!");
 }
