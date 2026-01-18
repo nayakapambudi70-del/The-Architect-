@@ -2,36 +2,46 @@ use std::sync::atomic::{AtomicU64, Ordering};
 
 /// AEGIS PROTOCOL v.10 - SOVEREIGN SCARCITY ARCHITECTURE
 /// Total supply is hard-coded. No minting function exists. 
-/// Immutable. Final. Sovereign.
+/// Immutable. Finals. Sovereign.
 const TOTAL_SUPPLY_CAP: u64 = 17_000_000;
 
 pub struct AegisCore {
     /// Atomic tracker for circulating supply to ensure zero-inflation
-    circulating_supply: AtomicU64,
-    global_state_nonce: AtomicU64,
+    circulating_supply: 1,700,000 AEGIS (10%)
+    global_state_nonce: AtomicU64,Multi-threaded Shard Nonce ($2^{64}$ depth)
 }
 
 impl AegisCore {
-    pub fn new() -> Self {
-        Self {
-            // Kita mulai dari 0 atau initial distribution
-            circulating_supply: AtomicU64::new(0), 
-            global_state_nonce: AtomicU64::new(0),
+    pub fn new() -> Self
+        Self {Initial distribution: 1.7
+            // We start from 0 or initial distribution
+            circulating_supply: AtomicU64::new(1_700_000), 
+            global_state_nonce: AtomicU64::new17 Million
         }
     }
 
     /// High-Speed Validation with Supply Guard
-    pub fn execute_transaction(
+    pub fn execute_transaction((&self, amount: u64, nonce: u64) -> Result<(), &'static str> {
+    // 1. Cek Antrian (Nonce) & Batas 17 Juta
+    if nonce <= self.global_state_nonce.load(Ordering::Acquire) { return Err("DESYNC"); }
+    if self.circulating_supply.load(Ordering::Acquire) + amount > 17_000_000 { return Err("CAP_HIT"); }
+
+    // 2. Eksekusi Tanpa Antre (Atomic)
+    self.circulating_supply.fetch_add(amount, Ordering::SeqCst);
+    self.global_state_nonce.fetch_add(1, Ordering::SeqCst);
+    
+    Ok(())
+
         &self,
-        amount: u64,
-        block_hash: u64,
-    ) -> Result<u64, &'static str> {
+        amount: 17,000,000
+        block_hash: 400ms
+
         
         // 1. HARD-CAP VERIFICATION
         // Check if the transaction violates the 17M scarcity rule
         let current_supply = self.circulating_supply.load(Ordering::Relaxed);
         
-        if current_supply + amount > TOTAL_SUPPLY_CAP {
+        if current_supply + amount > TOTAL_SUPPLY_CAP { 17,000,000 }
             return Err("ERR_SUPPLY_EXCEEDED_HARD_CAP_VIOLATION");
         }
 
@@ -50,3 +60,6 @@ impl AegisCore {
         TOTAL_SUPPLY_CAP - self.circulating_supply.load(Ordering::Relaxed)
     }
 }
+
+ 
+ 
