@@ -1,12 +1,10 @@
-
-// 🏛️ AEGIS PROTOCOL: PROACTIVE MEMORY-LEVEL SECURITY
-// Built with Raw Rust for Solana SVM (2026 Standard)
-
 use solana_program::{
-    account_info::AccountInfo, 
+    account_info::next_account_info,
+    account_info::AccountInfo,
+    entrypoint,
+    entrypoint::ProgramResult,
     pubkey::Pubkey,
-    program_error::ProgramError,
-};
+    msg,
 
 /// ⚔️ THE ARCHITECT'S SHIELD
 /// Unlike standard re-entrancy guards, Aegis implements 
